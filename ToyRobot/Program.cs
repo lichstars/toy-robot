@@ -9,6 +9,15 @@ namespace ToyRobot
     {
         static void Main(string[] args)
         {
+            while (true)
+            {
+                Console.Write(">");
+                string command = Console.ReadLine();
+
+                if (command == "q")
+                    break;
+                
+            }
         }
     }
 }
