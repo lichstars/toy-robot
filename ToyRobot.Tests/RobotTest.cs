@@ -113,5 +113,35 @@ namespace ToyRobot.Tests
             string result = robot.report();
             Assert.AreEqual("3,0,NORTH", result);
         }
+        [TestMethod]
+        public void Robot_TestExampleA()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 0,0,NORTH");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("0,1,NORTH", result);
+        }
+        [TestMethod]
+        public void Robot_TestExampleB()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 0,0,NORTH");
+            robot.send("LEFT");
+            string result = robot.report();
+            Assert.AreEqual("0,0,WEST", result);
+        }
+        [TestMethod]
+        public void Robot_TestExampleC()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 1,2,EAST");
+            robot.send("MOVE");
+            robot.send("MOVE");
+            robot.send("LEFT");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("3,3,NORTH", result);
+        }
     }
 }
