@@ -11,7 +11,7 @@ namespace ToyRobot
         private string[] ACCEPTED_COMMANDS = new string[5] { "PLACE", "MOVE", "LEFT", "RIGHT", "REPORT" };
         private string[] ACCEPTED_DIRECTIONS = new string[4] { "NORTH", "SOUTH", "EAST", "WEST" };
         public Robot robot { get; set; }
-
+        
         public RobotParser(Robot robot)
         {
             this.robot = robot;

@@ -24,13 +24,20 @@ namespace ToyRobot.Tests
             bool result = robot.send("MOVE");
             Assert.IsTrue(result);
         }
-
         [TestMethod]
         public void Robot_ShouldNotAcceptPlaceCommand_WhenLocationIsOffTable()
         {
             Robot robot = new Robot();
             bool result = robot.place("PLACE -1,0,NORTH");
             Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void Robot_ShouldReportPositionCorrectly()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 0,0,NORTH");
+            string result = robot.report();
+            Assert.AreEqual("0,0,NORTH", result);
         }
     }
 }

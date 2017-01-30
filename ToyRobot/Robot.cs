@@ -20,16 +20,24 @@ namespace ToyRobot
         {
             bool response = true;
 
-            if (command == "MOVE")
-                response = move();
-
             if (command.StartsWith("PLACE"))
                 place(command);
-            
 
-            if (response == false)
-                Console.WriteLine("Command ignored. Robot must be placed on the table first.");
+            else
+            {
+                if (!isRobotOnTable(this.x, this.y))
+                {
+                    Console.WriteLine("Command ignored. Robot must be placed on the table first.");
+                    return false;
+                }
+                if (command == "MOVE")
+                    move();
 
+                if (command == "REPORT")
+                    Console.WriteLine(report());
+                
+
+            }
             return response;
         }
 
@@ -85,10 +93,14 @@ namespace ToyRobot
          * */
         private bool move()
         {
-            if (!isRobotOnTable(this.x, this.y))
-                return false;
-
             return true;
         }
+
+        public string report()
+        {
+            return String.Format("{0},{1},{2}", this.x, this.y, this.direction);
+            
+        }
+
     }
 }
