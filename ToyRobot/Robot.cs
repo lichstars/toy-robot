@@ -12,13 +12,13 @@ namespace ToyRobot
         private int? x;
         private int? y;
         private string direction;
+        private string error = "";
 
         /* Send() will receive commands and determine which method to call for the Robot to action upon.
          * If the Robot has not been placed on a table yet, the user will be warned with a message.
          */
-        public bool send(string command)
+        public void send(string command)
         {
-            bool response = true;
 
             if (command.StartsWith("PLACE"))
                 place(command);
@@ -27,18 +27,17 @@ namespace ToyRobot
             {
                 if (!isRobotOnTable(this.x, this.y))
                 {
-                    Console.WriteLine("Command ignored. Robot must be placed on the table first.");
-                    return false;
+                    this.error = "Command ignored. Robot must be placed on the table first.";
+                    Console.WriteLine(this.error);
                 }
 
-                if (command == "MOVE")
+                else if (command == "MOVE")
                     move();
 
-                if (command == "REPORT")
+                else if (command == "REPORT")
                     Console.WriteLine(report());
                 
             }
-            return response;
         }
 
         /* Function to check if the Robot is currently on the table
@@ -54,14 +53,14 @@ namespace ToyRobot
         /* Before moving a Robot, check if the new location is on the table. If it is not on the table a
          * warning message is sent to the user.
          */
-        private bool isLocationValid(int xPos, int yPos)
+        public bool isLocationValid(int xPos, int yPos)
         {
             if (!isRobotOnTable(xPos, yPos))
             {
-                Console.WriteLine("That move will move the Robot off the table. Try again.");
+                this.error = "That move will move the Robot off the table. Try again.";
+                Console.WriteLine(this.error);
                 return false;
             }
-
             return true;
         }
 
@@ -69,7 +68,7 @@ namespace ToyRobot
          * The acceptable format of a command is "PLACE 1,1,NORTH". If the location is located on the table the Robot will
          * be placed in the new location, otherwise the command will be ignored.
          * */
-        public bool place(string command)
+        public void place(string command)
         {
             string[] keywords = command.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             string[] location = keywords[1].Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
@@ -78,18 +77,14 @@ namespace ToyRobot
             int yPos = Convert.ToInt16(location[1]);
             string direction = location[2];
 
-            if (!isLocationValid(xPos, yPos))
-                return false;
-
-            makeMove(xPos, yPos, direction);
-            
-            return true;            
+            if (isLocationValid(xPos, yPos))
+                makeMove(xPos, yPos, direction);           
         }
 
         /* Move will move the Robot one unit forward in the direction it is currently facing. 
          * If the Robot is not on the table or if the move pushes the Robot off the table the move will be ignored. 
          * */
-        private bool move()
+        private void move()
         {
             int proposedY = this.y.Value;
             int proposedX = this.x.Value;
@@ -103,23 +98,27 @@ namespace ToyRobot
             if (this.direction == "WEST")
                 proposedX--;
 
-            if (!isLocationValid(proposedX, proposedY))
-                return false;
-
-            makeMove(proposedX, proposedY, direction);
-            
-            return true;
+            if (isLocationValid(proposedX, proposedY))
+                makeMove(proposedX, proposedY, direction);
         }
+
+        /* Update the position of the Robot */
         private void makeMove(int x, int y, string direction)
         {
             this.x = x;
             this.y = y;
             this.direction = direction;            
         }
+
+        /* Report the position of the Robot */
         public string report()
         {
-            return String.Format("{0},{1},{2}", this.x, this.y, this.direction);
-            
+            return String.Format("{0},{1},{2}", this.x, this.y, this.direction);    
+        }
+
+        public string getError()
+        {
+            return this.error;
         }
 
     }
