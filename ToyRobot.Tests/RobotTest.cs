@@ -100,7 +100,7 @@ namespace ToyRobot.Tests
         {
             Robot robot = new Robot();
             robot.send("PLACE 3,0,SOUTH");
-            robot.send("LEFT");
+            robot.send("RIGHT");
             string result = robot.report();
             Assert.AreEqual("3,0,WEST", result);
         }
@@ -109,7 +109,7 @@ namespace ToyRobot.Tests
         {
             Robot robot = new Robot();
             robot.send("PLACE 3,0,WEST");
-            robot.send("LEFT");
+            robot.send("RIGHT");
             string result = robot.report();
             Assert.AreEqual("3,0,NORTH", result);
         }
