@@ -24,8 +24,11 @@ namespace ToyRobot
 
             if (commandArray.Count() <= 0)
                 return false;
-
+            
             string command = commandArray[0];
+
+            if (commandArray.Count() > 1 && command != "PLACE")
+                return false;
 
             if (Constants.ACCEPTED_COMMANDS.Contains(command) == false)
                 return false;
@@ -51,7 +54,7 @@ namespace ToyRobot
                 if (Constants.ACCEPTED_DIRECTIONS.Contains(location[2]) == false)
                     return false;
             }
-
+            
             this.robot.send(instruction);
 
             return true;
