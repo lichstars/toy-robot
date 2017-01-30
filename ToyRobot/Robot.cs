@@ -35,9 +35,12 @@ namespace ToyRobot
 
                 else if (command == "REPORT")
                     Console.WriteLine(report());
-                
+
                 else if (command == "LEFT")
                     left();
+
+                else if (command == "RIGHT")
+                    right();
             }
         }
 
@@ -121,7 +124,10 @@ namespace ToyRobot
         {
             return this.error;
         }
-                
+
+        /* Left will change the robots direction by 90 degrees to the left. That is from North to West, 
+         * West to South, etc. This is achieved by traversing the direction array by one unit to the left. 
+         * The array wraps and behaves as a circular array.*/
         private void left()
         {
             int currentPos = Array.IndexOf(Constants.ACCEPTED_DIRECTIONS, this.direction);
@@ -130,6 +136,20 @@ namespace ToyRobot
 
             if (currentPos < 0)
                 currentPos = Constants.ACCEPTED_DIRECTIONS.Length - 1;
+
+            this.direction = Constants.ACCEPTED_DIRECTIONS[currentPos];
+        }
+        /* Right will change the robots direction by 90 degrees to the right. That is from West to North, 
+         * South to West, etc. This is achieved by traversing the direction array by one unit to the right.
+         * The array wraps and behaves as a circular array.*/
+        private void right()
+        {
+            int currentPos = Array.IndexOf(Constants.ACCEPTED_DIRECTIONS, this.direction);
+
+            currentPos++;
+
+            if (currentPos > Constants.ACCEPTED_DIRECTIONS.Length -1 )
+                currentPos = 0;
 
             this.direction = Constants.ACCEPTED_DIRECTIONS[currentPos];
         }
