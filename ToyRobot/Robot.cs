@@ -19,7 +19,6 @@ namespace ToyRobot
          */
         public void send(string command)
         {
-
             if (command.StartsWith("PLACE"))
                 place(command);
 
@@ -37,6 +36,8 @@ namespace ToyRobot
                 else if (command == "REPORT")
                     Console.WriteLine(report());
                 
+                else if (command == "LEFT")
+                    left();
             }
         }
 
@@ -53,7 +54,7 @@ namespace ToyRobot
         /* Before moving a Robot, check if the new location is on the table. If it is not on the table a
          * warning message is sent to the user.
          */
-        public bool isLocationValid(int xPos, int yPos)
+        private bool isLocationValid(int xPos, int yPos)
         {
             if (!isRobotOnTable(xPos, yPos))
             {
@@ -68,7 +69,7 @@ namespace ToyRobot
          * The acceptable format of a command is "PLACE 1,1,NORTH". If the location is located on the table the Robot will
          * be placed in the new location, otherwise the command will be ignored.
          * */
-        public void place(string command)
+        private void place(string command)
         {
             string[] keywords = command.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             string[] location = keywords[1].Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
@@ -119,6 +120,18 @@ namespace ToyRobot
         public string getError()
         {
             return this.error;
+        }
+                
+        private void left()
+        {
+            int currentPos = Array.IndexOf(Constants.ACCEPTED_DIRECTIONS, this.direction);
+
+            currentPos--;
+
+            if (currentPos < 0)
+                currentPos = Constants.ACCEPTED_DIRECTIONS.Length - 1;
+
+            this.direction = Constants.ACCEPTED_DIRECTIONS[currentPos];
         }
 
     }

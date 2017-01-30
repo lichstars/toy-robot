@@ -7,9 +7,7 @@ namespace ToyRobot
 {
     /*RobotParser is responsible for parsing strings and determining if they are valid for the Robot to process.*/
     public class RobotParser
-    {
-        private string[] ACCEPTED_COMMANDS = new string[5] { "PLACE", "MOVE", "LEFT", "RIGHT", "REPORT" };
-        private string[] ACCEPTED_DIRECTIONS = new string[4] { "NORTH", "SOUTH", "EAST", "WEST" };
+    {        
         public Robot robot { get; set; }
         
         public RobotParser(Robot robot)
@@ -29,7 +27,7 @@ namespace ToyRobot
 
             string command = commandArray[0];
 
-            if (ACCEPTED_COMMANDS.Contains(command) == false)
+            if (Constants.ACCEPTED_COMMANDS.Contains(command) == false)
                 return false;
 
             if (command == "PLACE")
@@ -50,7 +48,7 @@ namespace ToyRobot
                 if (int.TryParse(location[1], out value) == false)
                     return false;
 
-                if (ACCEPTED_DIRECTIONS.Contains(location[2]) == false)
+                if (Constants.ACCEPTED_DIRECTIONS.Contains(location[2]) == false)
                     return false;
             }
 

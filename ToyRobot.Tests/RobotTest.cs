@@ -77,6 +77,14 @@ namespace ToyRobot.Tests
             string result = robot.report();
             Assert.AreEqual("2,0,WEST", result);
         }
-
+        [TestMethod]
+        public void Robot_ShouldFaceSouth_WhenMovedLeftFromWest()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 3,0,WEST");
+            robot.send("LEFT");
+            string result = robot.report();
+            Assert.AreEqual("3,0,SOUTH", result);
+        }
     }
 }
