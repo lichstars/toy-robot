@@ -30,13 +30,13 @@ namespace ToyRobot
                     Console.WriteLine("Command ignored. Robot must be placed on the table first.");
                     return false;
                 }
+
                 if (command == "MOVE")
                     move();
 
                 if (command == "REPORT")
                     Console.WriteLine(report());
                 
-
             }
             return response;
         }
@@ -54,7 +54,7 @@ namespace ToyRobot
         /* Before moving a Robot, check if the new location is on the table. If it is not on the table a
          * warning message is sent to the user.
          */
-        private bool isMoveValid(int xPos, int yPos, string direction, string command)
+        private bool isLocationValid(int xPos, int yPos)
         {
             if (!isRobotOnTable(xPos, yPos))
             {
@@ -78,12 +78,10 @@ namespace ToyRobot
             int yPos = Convert.ToInt16(location[1]);
             string direction = location[2];
 
-            if (!isMoveValid(xPos, yPos, direction, "PLACE"))
+            if (!isLocationValid(xPos, yPos))
                 return false;
-                        
-            this.x = xPos;
-            this.y = yPos;
-            this.direction = direction;
+
+            makeMove(xPos, yPos, direction);
             
             return true;            
         }
@@ -93,9 +91,31 @@ namespace ToyRobot
          * */
         private bool move()
         {
+            int proposedY = this.y.Value;
+            int proposedX = this.x.Value;
+
+            if (this.direction == "NORTH")
+                proposedY++;
+            if (this.direction == "SOUTH")
+                proposedY--;
+            if (this.direction == "EAST")
+                proposedX++;
+            if (this.direction == "WEST")
+                proposedX--;
+
+            if (!isLocationValid(proposedX, proposedY))
+                return false;
+
+            makeMove(proposedX, proposedY, direction);
+            
             return true;
         }
-
+        private void makeMove(int x, int y, string direction)
+        {
+            this.x = x;
+            this.y = y;
+            this.direction = direction;            
+        }
         public string report()
         {
             return String.Format("{0},{1},{2}", this.x, this.y, this.direction);

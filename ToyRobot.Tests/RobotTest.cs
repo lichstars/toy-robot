@@ -39,5 +39,41 @@ namespace ToyRobot.Tests
             string result = robot.report();
             Assert.AreEqual("0,0,NORTH", result);
         }
+        [TestMethod]
+        public void Robot_ShouldMoveNorthOneUnit_WhenFacingNorthAndMoved()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 0,0,NORTH");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("0,1,NORTH", result);
+        }
+        [TestMethod]
+        public void Robot_ShouldMoveSouthOneUnit_WhenFacingSouthAndMoved()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 0,2,SOUTH");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("0,1,SOUTH", result);
+        }
+        [TestMethod]
+        public void Robot_ShouldMoveEastOneUnit_WhenFacingEastAndMoved()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 3,0,EAST");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("4,0,EAST", result);
+        }
+        [TestMethod]
+        public void Robot_ShouldMoveWestOneUnit_WhenFacingWestAndMoved()
+        {
+            Robot robot = new Robot();
+            robot.send("PLACE 3,0,WEST");
+            robot.send("MOVE");
+            string result = robot.report();
+            Assert.AreEqual("2,0,WEST", result);
+        }
     }
 }
