@@ -9,6 +9,8 @@ namespace ToyRobot
     {
         static void Main(string[] args)
         {
+            RobotParser robotParser = new RobotParser(new Robot());
+
             while (true)
             {
                 Console.Write(">");
@@ -16,6 +18,9 @@ namespace ToyRobot
 
                 if (command == "q")
                     break;
+
+                if (robotParser.parse(command) == false)
+                    Console.WriteLine("Robot does not recognise that command.");
                 
             }
         }
