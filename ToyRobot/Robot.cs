@@ -26,7 +26,7 @@ namespace ToyRobot
             {
                 if (!isRobotOnTable(this.x, this.y))
                 {
-                    this.error = "Command ignored. Robot must be placed on the table first.";
+                    this.error = "Robot must be placed on the table first.";
                     Console.WriteLine(this.error);
                 }
 

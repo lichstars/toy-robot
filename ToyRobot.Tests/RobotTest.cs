@@ -16,7 +16,7 @@ namespace ToyRobot.Tests
             Robot robot = new Robot();
             robot.send("MOVE");
             string expected = robot.getError();
-            Assert.AreEqual(expected, "Command ignored. Robot must be placed on the table first.");
+            Assert.AreEqual(expected, "Robot must be placed on the table first.");
         }
         [TestMethod]
         public void Robot_ShouldAcceptMoveCommand_AfterPlacedOnTable()
