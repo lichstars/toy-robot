@@ -51,6 +51,13 @@ namespace ToyRobot.Tests
             var result = parser.parse("PLACE 1,1,NTH");
             Assert.IsFalse(result);
         }
-
+        [TestMethod]
+        public void RobotParser_ShouldNotAcceptTwoCommandsOnOneLine()
+        {
+            RobotParser parser = new RobotParser(new Robot());
+            parser.parse("PLACE 0,0,NORTH");
+            bool result = parser.parse("MOVE REPORT");
+            Assert.IsFalse(result);
+        }
     }
 }
